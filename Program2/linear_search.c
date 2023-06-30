@@ -1,12 +1,18 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include<time.h>
 
 
 
 int main(){
+    clock_t t,e;
+    
     int* ptr;
     int n, i;
+
+    t = clock();
+    
+    
  
     printf("Enter number of elements:");
     scanf("%d",&n);
@@ -35,6 +41,10 @@ int main(){
     if (s==0){
         printf("Key NOT found at any position \n");
     }
+
+    t = clock() - t;
+
+    printf("Total Time is %f milliseconds \n",((float)t)/CLOCKS_PER_SEC);
 
 
  
