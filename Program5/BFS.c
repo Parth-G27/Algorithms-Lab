@@ -7,14 +7,24 @@ struct queue{
     int arr[30];
 };
 
-void enqueue(struct queue *q, int val){
-    if(q->f==max-1){
-        printf("Queue is Full \n");
+int isfull(struct queue *q){
+    if(q->r==max-1){
+        return 1;
     }
-    else if(q->r==-1){
-        q->r++;
-        q->f++;
-        q->arr[q->r]=val;
+    return 0;
+    
+}
+
+int isEmpty(struct queue *q){
+    if(q->f == q->r){
+        return 1;
+    }
+    return 0;
+}
+
+void enqueue(struct queue *q, int val){
+    if(q->r==max-1){
+        printf("Queue is Full \n");
     }
     else{
         q->r++;
@@ -22,14 +32,18 @@ void enqueue(struct queue *q, int val){
     }
 }
 
-void dequeue(struct queue *q){
-    if(q->f==-1 && q->r==-1){
+int dequeue(struct queue *q){
+    int a=-1;
+    if(q->f == q->r){
         printf("Queue is Empty \n");
     }
     else{
-        printf("The deleted element is %d \n",q->arr[q->f]);
+        //printf("The deleted element is %d \n",q->arr[q->f]);
         q->f++;
+        a = q->arr[q->f];
+        
     }
+    return a;
 }
 
 void print_queue(struct queue *q){
@@ -43,18 +57,42 @@ int main(){
 
     struct queue q;
     struct queue* ptr = &q;
-    q.f=-1;
-    q.r=-1;
+    q.f=0;
+    q.r=0;
 
-    enqueue(ptr,9);
-    enqueue(ptr,5);
-    enqueue(ptr,2);
-    print_queue(ptr);
-    dequeue(ptr);
-    dequeue(ptr);
-    print_queue(ptr);
-    enqueue(ptr,6);
-    enqueue(ptr,8);
-    print_queue(ptr);
+    int node ;
+    int i = 5 ;
+    printf("%d",i);
+    int visited[7]={0,0,0,0,0,0,0};
+    int a [7][7] = {
+        {0,1,1,1,0,0,0},
+        {1,0,1,0,0,0,0},
+        {1,1,0,1,1,0,0},
+        {1,0,1,0,1,0,0},
+        {0,0,1,1,0,1,1},
+        {0,0,0,0,1,0,0}, 
+        {0,0,0,0,1,0,0} 
+    };
 
+    visited [i] = 1;
+    enqueue(&q,i);
+
+
+
+    while (!isEmpty(&q)){
+        int node = dequeue(&q);
+        
+        for (int j = 0; j < 7; j++)
+        {
+           
+            if(a[node][j] ==1 && visited[j] == 0){
+                printf("%d", j);
+                visited[j] = 1;
+                enqueue(&q, j);
+            }
+        }
+    }
+
+
+    return 0;
 }
