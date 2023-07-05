@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<time.h>
 #define max 10
 
 struct queue{
@@ -54,6 +55,8 @@ void print_queue(struct queue *q){
 }
 
 int main(){
+    clock_t t;
+    t=clock();
 
     struct queue q;
     struct queue* ptr = &q;
@@ -92,6 +95,8 @@ int main(){
             }
         }
     }
+    t=clock()-t;
+    printf(" Time taken : %f \n",((float)t)/CLOCKS_PER_SEC);
 
 
     return 0;
